@@ -1,0 +1,63 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+       <link href="{% static 'network/styles2.css' %}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <title>{% block title %} Войти в miSchool  {% endblock %}</title>
+  </head>
+  <body>
+    {% block body %}
+<div class="modal modal-signin position-static d-block  py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+        <h1 class="fw-bold mb-0 fs-2">Войти в miSchool</h1>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form action="{% url 'login' %}" method="post" id="signin-form">
+            {% csrf_token %}
+          <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control rounded-3" id="floatingInput" autocomplete="off" autofocus placeholder="schoolName">
+            <label for="floatingInput">schoolName</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input  class="form-control rounded-3" id="floatingPassword" placeholder="Пароль" type="password" name="password" placeholder="Пароль" autocomplete="off">
+            <label for="floatingPassword">Пароль</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Войти</button>
+          <small class="text-muted" align="center">Нет аккаунта?&nbsp;&nbsp;<a href="{% url 'register' %}">Создай</a></small>
+          <hr class="my-4">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".inp").forEach(input => {
+                input.addEventListener('input', () => {
+                    if ((document.querySelector('.usrnm').value.length === 0) || (document.querySelector('.pswd').value.length === 0)) {
+                        document.querySelector('input[type="submit"]').disabled = true;
+                    }
+                    else {
+                        document.querySelector('input[type="submit"]').disabled = false;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+  </body>
+</html>
+
+
+
+
+
